@@ -8,8 +8,8 @@ import sys
 query = sys.stdin.read()
 print(query)
 
-con = duckdb.connect('md:')
 con = duckdb.connect(database="md:ClickBench", read_only=False)
+con.sql("SET enable_external_file_cache = false;")
 for try_num in range(3):
     start = timeit.default_timer()
     results = con.sql(query).fetchall()
